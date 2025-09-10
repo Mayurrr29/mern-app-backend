@@ -5,7 +5,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect("mongodb://127.0.0.1:27017/mern_crud").then(() => console.log("Connected to MongoDB"))
+mongoose.connect(process.env.MONGO_URI).then(() => console.log("Connected to MongoDB"))
 .catch((err) => console.log(err));
 
 const userSchema= new mongoose.Schema({
@@ -14,7 +14,6 @@ const userSchema= new mongoose.Schema({
     number:{type:String, required:true,min:10,max:10},
     message:{type:String, required:true},
 });
-
 
 
 const User= mongoose.model("User", userSchema);
@@ -62,5 +61,5 @@ app.put("/users/:id", async(req,res)=>{
         res.status(500).json({error: err.message});
     }
 })
+
 module.exports = app;
-module.exports.handler = serverless(app);
