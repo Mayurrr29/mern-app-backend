@@ -62,6 +62,5 @@ app.put("/users/:id", async(req,res)=>{
         res.status(500).json({error: err.message});
     }
 })
-app.listen(5000,()=>{
-    console.log("Server is running on port 5000");
-});
+module.exports = app;
+module.exports.handler = serverless(app);
